@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil Exos ICT-133</title>
+    <title>Accueil Ajax-Sandbox</title>
     <style>
         body {
             text-align: left;
@@ -49,7 +49,7 @@
     </style>
 </head>
 <body>
-<h1>Accueil Exos ICT-133</h1>
+<h1>Accueil Ajax-Sandbox</h1>
 
 
 <?php

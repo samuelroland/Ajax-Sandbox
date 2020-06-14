@@ -6,11 +6,6 @@
  *  Creation date: 08.06.2020
  */
 
-$placeholder = "For SQL injection: insert: ASA'; update grade set gradeValue=6; -- and reload a second time the page... all notes will change to 6... 
-
-OR if you want to change only the notes of the user with ASA initials: update grade SET grade.gradeValue=7.5
-WHERE grade.fkStudent = (SELECT person.idPerson FROM person WHERE person.personInitials = \"ASA\" AND person.role=0 LIMIT 1)";
-$placeholder = htmlentities($placeholder);
 
 ob_start();
 ?>
@@ -22,14 +17,37 @@ ob_start();
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Rechercher les notes d'un élève</title>
+        <script src="global.js"></script>
+        <style>
+            td {
+                padding: 10px;
+                background-color: #1abc9c;
+            }
 
+            th {
+                padding: 10px;
+                background-color: #AD0AD3F7;
+            }
+        </style>
     </head>
     <body>
-    <form action="/update_injection/" method="post">
-        <p>Initiales élèves</p>
-        <textarea cols="100" rows="20" name="initials" placeholder="<?= $placeholder ?>"></textarea>
-        <input type="submit" value="Rechercher les notes">
-    </form>
+    <h1>Rechercher les notes d'un élève</h1>
+    <h2>Initiales</h2>
+    <textarea cols="30" rows="2" name="initials" placeholder="enter initials"></textarea><br>
+    <button id="cmdSearch">Rechercher les notes</button>
+    <p id="pResult"></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Module</th>
+            <th>Date</th>
+            <th>Note</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        <!-- Content generated in js with Ajax call... -->
+        </tbody>
+    </table>
     </body>
     </html>
 <?php
