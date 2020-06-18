@@ -16,7 +16,7 @@ ob_start();
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Rechercher les notes d'un élève</title>
+        <title>Recherche d'émojis GitHub</title>
         <script src="global.js"></script>
         <style>
             td {
@@ -28,26 +28,19 @@ ob_start();
                 padding: 10px;
                 background-color: #AD0AD3F7;
             }
+            img{
+                width: 40px;
+            }
         </style>
     </head>
     <body>
-    <h1>Rechercher les notes d'un élève</h1>
-    <h2>Initiales</h2>
-    <textarea cols="30" rows="2" name="initials" placeholder="enter initials"></textarea><br>
-    <button id="cmdSearch">Rechercher les notes</button>
-    <p id="pResult"></p>
-    <table>
-        <thead>
-        <tr>
-            <th>Module</th>
-            <th>Date</th>
-            <th>Note</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        <!-- Content generated in js with Ajax call... -->
-        </tbody>
-    </table>
+    <h1>Recherche d'émojis GitHub</h1>
+    <button id="btnGetEmojis">Aller chercher les émojis...</button>
+    <br><br>
+    <input type="text" placeholder="Enter the emoji name" id="inpSearch"><span> En cours...</span>
+    <ul id="ulEmojis">
+        <li><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f4af.png?v8" alt=""></li>
+    </ul>
     </body>
     </html>
 <?php
