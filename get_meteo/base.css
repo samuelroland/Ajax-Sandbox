@@ -1,0 +1,12 @@
+
+#ask-weather {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#weather-result {
+    text-align: center;
+    font-size: 24px;
+}
