@@ -10,6 +10,7 @@ btnSubmit = document.getElementById("submit-btn")
 
 //INFO: regex in js start and finish with "/" but not in HTML in the attribut pattern !
 //Ex: in JS--> /^CODE-/test(code.value) and in HTML--> pattern="^CODE-"
+//TODO: but why in HTML the browser doesn't accept chars after "CODE-" ???
 
 //Check validity of the code value
 function checkCode() {
