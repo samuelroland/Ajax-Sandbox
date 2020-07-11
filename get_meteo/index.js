@@ -4,6 +4,8 @@
  */
 
 document.getElementById("ask-weather").addEventListener("click", askWeather)
+document.getElementById("txtCity").addEventListener("keypress", loadButton)
+document.getElementById("txtCity").addEventListener("keyup", loadButton)
 
 function askWeather() {
     request = new XMLHttpRequest()  //create the request object
@@ -34,8 +36,26 @@ function askWeather() {
             //Create an image with the current weather
             divImg.appendChild(document.createElement("img"))
             divImg.firstChild.src = response.current_condition.icon
+
+            //Display the place of the meteo displayed
+            place = document.getElementById("place-result")
+            place.innerText = response.city_info.name+", "+ response.city_info.elevation + " m. d'alt., " + response.city_info.country
         }
     };
-    request.open("GET", "https://www.prevision-meteo.ch/services/json/paris")   //prepare the request with method and url
+    request.open("GET", "https://www.prevision-meteo.ch/services/json/" + txtCity.value)   //prepare the request with method and url
     request.send()
 }
+
+//reload the button text when the txtCity text change
+function loadButton() {
+    btnAsk = document.getElementById("ask-weather")
+
+    //Take value of the input
+    valueToInsert = txtCity.value
+    if (valueToInsert === "") {
+        valueToInsert = "..."   //if "", replace with "..."
+    }
+    btnAsk.innerText = "Météo de " + valueToInsert + " ?"
+}
+
+loadButton()    //load at start to take the value already inserted

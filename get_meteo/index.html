@@ -2,10 +2,19 @@
 <head>
     <link rel="stylesheet" type="text/css" href="base.css">
 </head>
-<body>
-<div><button id="ask-weather">Quelle est la météo sur Paris ?</button></div>
-<div id="img-result" style="align-items: center; display: flex; justify-content: center;"></div>
-<div id="weather-result"></div>
+<body style="text-align: center;">
+<h1>Quel beau temps fait-il ?</h1>
+<p>Donnez le nom d'une localité connue de <a href="https://www.prevision-meteo.ch">www.prevision-meteo.ch</a>:</p>
+<p><em>Attention à ne pas mettre d'accents et mettre le nom en entier dans la bonne langue. (Berne en suisse s'écrit en allemand: Bern)</em></p>
+<input type="text" id="txtCity">
+<div>
+    <button id="ask-weather">Météo de ... ?</button>
+</div>
+<div id="result">
+    <p id="place-result"></p>
+    <div id="img-result"></div>
+    <div id="weather-result"></div>
+</div>
 
 <script type="text/javascript" src="index.js"></script>
 </body>
