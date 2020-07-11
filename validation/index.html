@@ -5,11 +5,11 @@
 <body>
 <form id="form-to-check">
     <p>
-        <label>Code : <input type="text" name="code" id="code" /></label><br />
+        <label>Code : <input type="text" name="code" id="code" pattern="^CODE-" /></label><br />
     <div class="result" id="code-validation"></div>
     </p>
     <p>
-        <label>Email : <input type="text" name="email" /></label>
+        <label>Email : <input type="email" name="email" /></label>
     </p>
     <p>
         <input type="submit" value="Vérifier" id="submit-btn" />
@@ -19,4 +19,3 @@
 <script type="text/javascript" src="index.js"></script>
 </body>
 </html>
-
