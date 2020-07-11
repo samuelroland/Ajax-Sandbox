@@ -28,18 +28,23 @@ function askWeather() {
         //write "this" is equal to write "event.target"
         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) { //if the request is DONE so the state is 4. and if the request is success.
             var response = JSON.parse(this.responseText);   //parse in JSOn the response of the request
-            console.log(response.current_condition.condition);  //display one field of the data received
+            if (response.hasOwnProperty("errors") == false) {   //if the API doesn't return errors
+                console.log(response.current_condition.condition);  //display one field of the data received
 
-            //Display the text about the current condition
-            res.innerText = response.current_condition.condition
+                //Display the text about the current condition
+                res.innerText = response.current_condition.condition
 
-            //Create an image with the current weather
-            divImg.appendChild(document.createElement("img"))
-            divImg.firstChild.src = response.current_condition.icon
+                //Create an image with the current weather
+                divImg.appendChild(document.createElement("img"))
+                divImg.firstChild.src = response.current_condition.icon
 
-            //Display the place of the meteo displayed
-            place = document.getElementById("place-result")
-            place.innerText = response.city_info.name+", "+ response.city_info.elevation + " m. d'alt., " + response.city_info.country
+                //Display the place of the meteo displayed
+                place = document.getElementById("place-result")
+                place.innerText = response.city_info.name + ", " + response.city_info.elevation + " m. d'alt., " + response.city_info.country
+            } else {
+                place = document.getElementById("place-result")
+                place.innerHTML = txtCity.value + " non trouvée par www.prevision-meteo.ch... Essayez une autre localité! (voir <a href='https://www.prevision-meteo.ch/services/json/list-cities'>la liste des localités</a>)"
+            }
         }
     };
     request.open("GET", "https://www.prevision-meteo.ch/services/json/" + txtCity.value)   //prepare the request with method and url
