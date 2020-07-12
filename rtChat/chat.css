@@ -1,0 +1,27 @@
+/**
+ *  Project: KanFF
+ *  File: styles.css global css
+ *  Author: Team
+ *  Creation date: 26.04.2020
+ */
+
+.total {
+    height: 700px;
+    background-color: #1abc9c;
+}
+
+.oneConv {
+    height: 50px;
+    background-color: #b3d7ff;
+    margin: 2px;
+}
+.detailsMsgs{
+    display: flex;
+    justify-content: start;
+    align-items: end;
+}
+.divSending{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
