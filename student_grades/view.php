@@ -1,9 +1,9 @@
 <?php
 /**
- *  Projet: xxx
- *  Filename: ICT-151-Revisions
+ *  Projet: Ajax-Sandbox: Learning to use Ajax
+ *  Filename: view.php
  *  Author: Samuel Roland
- *  Creation date: 08.06.2020
+ *  Creation date: 06.2020
  */
 
 

@@ -1,9 +1,9 @@
 <?php
 /**
- *  Projet: ICT-151-SandBox
+ *  Projet: Ajax-Sandbox: Learning to use Ajax
  *  Filename: index.php
  *  Author: Samuel Roland
- *  Creation date: 06.02.2020
+ *  Creation date: 06.2020
  */
 
 require "CRUDModel.php";
@@ -17,12 +17,12 @@ INNER JOIN grade ON grade.fkStudent = person.idPerson
 INNER JOIN evaluation ON evaluation.idEvaluation = grade.fkEval
 INNER JOIN moduleInstance ON moduleInstance.idModuleInstance = evaluation.fkModuleInstance
 INNER JOIN module ON module.idModule = moduleInstance.fkModule
-WHERE person.personInitials = '" . $data['initials'] . "' AND person.role = 0";
+WHERE person.personInitials = '" . trim($data['initials'], "\t\n\r\0\x0B") . "' AND person.role = 0";
     $grades = Query($query, null, true);
     if (empty($grades) == false) {
         echo json_encode($grades);  //return the data in json format for the ajax call
     } else {
-        echo json_encode(["error"=> "user {$data['initials']} not found..."]);
+        echo json_encode(["error" => "user " . trim($data['initials'], "\t\n\r\0\x0B") . " not found..."]);
     }
 
 } else {

@@ -1,8 +1,8 @@
-/*
-*
-*
-* */
-
+/*  Projet: Ajax-Sandbox: Learning to use Ajax
+*  Filename: global.js
+*  Author: Samuel Roland
+*  Creation date: 06.2020
+*/
 
 document.addEventListener("DOMContentLoaded", function () {
     cmdSearch.addEventListener("click", searchNotes)
@@ -45,6 +45,7 @@ function searchNotes() {
                 })
             } else {
                 tbody.innerText = "Error: " + values.error
+                pResult.innerText = ""
             }
 
         }
