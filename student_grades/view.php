@@ -33,8 +33,10 @@ ob_start();
     <body>
     <h1>Rechercher les notes d'un élève</h1>
     <h2>Initiales</h2>
-    <textarea id="txtInitials" cols="30" rows="2" name="initials" placeholder="enter initials"></textarea><br>
-    <button id="cmdSearch">Rechercher les notes</button>
+    <p>Identification de l'élève:</p><input type="text" maxlength="3" id="txtInitials" name="initials" placeholder="enter initials"> ou
+    <input type="text" maxlength="100" id="txtFirstname" name="firstname" placeholder="enter firstname" required>
+    <input type="text" maxlength="100" id="txtLastname" name="lastname" placeholder="enter lastname" required>
+    <br><br><button id="cmdSearch">Rechercher les notes</button>
     <p id="pResult"></p>
     <table>
         <thead>

@@ -47,13 +47,29 @@ function searchNotes() {
                 tbody.innerText = "Error: " + values.error
                 pResult.innerText = ""
             }
-
         }
     }
-    bodyPOST = {initials: txtInitials.value}
+    //Build bodyPOST:
+    bodyPOST = ""
+    if (txtFirstname.value != "" && txtLastname.value != "") {
+        bodyPOST = {firstname: txtFirstname.value, lastname: txtLastname.value}
+        txtInitials.value = ""
+    } else {
+        if (txtInitials.value !== "") {
+            bodyPOST = {initials: txtInitials.value}
+            txtFirstname.value =""
+            txtLastname.value =""
+        } else {
+            pResult.innerText = "données manquantes..."
+        }
+    }
+
     request.open("POST", "?action=getGrades")
     //request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
     request.setRequestHeader("Content-Type", "application/json")
-    request.send(JSON.stringify(bodyPOST))
+    if (bodyPOST != "") {
+        request.send(JSON.stringify(bodyPOST))
+    }
+
 
 }
