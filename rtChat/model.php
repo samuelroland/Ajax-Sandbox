@@ -21,7 +21,7 @@ function getAllMessages($id)
 //Send a message to a receiver
 function createMsg($msg)
 {
-
+    createOne("messages", $msg);
 }
 
 //Get all conversation of the user logged

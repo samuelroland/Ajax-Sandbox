@@ -21,6 +21,14 @@
     background-color: #ff8f00;
 }
 
+.convSelect {
+    background-color: #f3cd97;
+}
+
+.convSelect:hover {
+    background-color: #f3cd97;
+}
+
 .newConv {
     padding: 20px 10px;
 }
@@ -68,6 +76,7 @@
     width: min-content;
 }
 
-button:hover{
+button:hover {
     background-color: #b3d7ff;
 }
+

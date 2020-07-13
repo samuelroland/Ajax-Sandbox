@@ -22,10 +22,10 @@ function trimIt($value)
 
 //selon l'action
 switch ($_GET['action']) {
-    case "getMessages":
+    case "getMessages": //AJAX Call
         getMessages($_GET['id']);
         break;
-    case "sendMsg":
+    case "sendMsg": //AJAX Call
         sendMsg($data);
         break;
     default:

@@ -101,11 +101,11 @@ ob_start();
                             <p>Aucune conversation sélectionnée...</p>
                         </div>
                         <div class="divSending flexdiv">
-                        <textarea class="fullwidth txtSend" rows="2" name="text" maxlength="2000"
+                        <textarea class="fullwidth txtSend" id="txtMsg" rows="2" name="text" maxlength="2000"
                                   placeholder="Envoyer un message..."></textarea>
                             <div class="p-1 divButtons">
-                                <button>Envoyer</button>
-                                <button>Vider</button>
+                                <button id="btnSend">Envoyer</button>
+                                <button id="btnEmpty">Vider</button>
                             </div>
                         </div>
                     </div>
