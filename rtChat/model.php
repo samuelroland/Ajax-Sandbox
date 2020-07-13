@@ -9,11 +9,12 @@
 //Get all message from a conversation by id
 function getAllMessages($id)
 {
-    $messages = getByCondition("messages", ["id" => $id], "messages.conversation_id =:id", true);
+    $messages = getByCondition("messages", ["id" => $id], "messages.conversation_id =:id ORDER BY messages.date", true);
 
     //Add sender informations:
     foreach ($messages as $key => $message) {
         $messages[$key]['sender'] = getOne("users", $message['sender_id']);
+        $messages[$key]['time'] = date("H:i", strtotime($message['date']));
     }
     return $messages;
 }
@@ -30,7 +31,8 @@ function getConversations($id)
     $query = "SELECT conversations.id, conversations.name, conversations.startdate, conversations.type FROM conversations 
 INNER JOIN interact ON interact.conversation_id = conversations.id
 INNER JOIN users ON users.id = interact.user_id
-WHERE users.id =:id";
+WHERE users.id =:id
+";
 
     $conversations = Query($query, ['id' => $id], true);
 

@@ -9,8 +9,10 @@ let lastConvClicked = null  //global var
 $(document).ready(function () {
     $(".oneConv").on("click", function (event) { //on event click with objects with class .oneConv
         lastConvClicked = event.target  //save the last conv clicked for apply a darker background if request was successful
-        getConversation(event.target.getAttribute("data-id"))
-        removeBG()
+        if (event.target.getAttribute("data-id") != null) {
+            getConversation(event.target.getAttribute("data-id"))
+            removeBG()
+        }
         event.stopPropagation()
     })
     console.log("DOM chargé")
@@ -20,6 +22,9 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     btnSend.addEventListener("click", sendMsg)
+    btnEmpty.addEventListener("click", function () {
+        txtMsg.value = ""
+    })
 })
 
 async function getConversation(id) {
@@ -56,7 +61,7 @@ function displayConversation(res) {
                 if (user.id == msg.sender.id) {
                     divBig.classList.add("box-alignright")
                 }
-                divSmall.innerHTML = "De: <strong>" + msg.sender.firstname + " " + msg.sender.lastname + "</strong><br><em>" + msg.text + "</em>"
+                divSmall.innerHTML = "De: <strong>" + msg.sender.firstname + " " + msg.sender.lastname + "</strong><br><em>" + msg.text + "</em><br><div class='alignright fullwidth'>" + msg.time + "</div>"
                 divSmall.classList.add("OneMsg")
                 divMsgsDetails.appendChild(divBig)
             })
@@ -80,7 +85,7 @@ function addMsgSent(msgSent) {
         if (user.id == msgSent.sender.id) {
             divBig.classList.add("box-alignright")
         }
-        divSmall.innerHTML = "De: <strong>" + msgSent.sender.firstname + " " + msgSent.sender.lastname + "</strong><br><em>" + msgSent.text + "</em>"
+        divSmall.innerHTML = "De: <strong>" + msgSent.sender.firstname + " " + msgSent.sender.lastname + "</strong><br><em>" + msgSent.text + "</em><br><div class='alignright fullwidth'>" + msgSent.time + "</div>"
         divSmall.classList.add("OneMsg")
         divMsgsDetails.appendChild(divBig)
     } else {

@@ -30,7 +30,10 @@ function sendMsg($data)
     $msg['sender_id'] = $_SESSION['user']['id'];
     $msg['conversation_id'] = $data['conversation_id'];
     createMsg($msg);    //create with msg with 4 fields
-    $msg['sender'] = getOne("users", $msg['sender_id']);    //add a field for send back a response with more data
+
+    //add 2 fields for send back a response with more data
+    $msg['time'] = date("H:i", strtotime($msg['date']));
+    $msg['sender'] = getOne("users", $msg['sender_id']);
     echo json_encode($msg); //write the response in json format for the ajax call
 }
 
