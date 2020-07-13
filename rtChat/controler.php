@@ -6,12 +6,10 @@
  * Date: juillet 2020.
  */
 
-//Get all message from a conversation by id
+//Get all message from a conversation by id of the conversation
 function getMessages($id)
 {
-    $messages = getAllMessages($id);
-    //echo json_encode(getAllMessages($id));
-    return $messages;
+    echo json_encode(getAllMessages($id));
 }
 
 //Send a message to a receiver
@@ -40,7 +38,6 @@ function login($info)
 
 function home()
 {
-    $messages = getMessages(3);
     $conversations = getConversations($_SESSION['user']['id']);
     require "view.php";
 }

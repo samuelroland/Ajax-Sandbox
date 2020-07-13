@@ -18,6 +18,12 @@ ob_start();
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-grid.css">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-reboot.css">
+
+
+        <!-- Jquery files -->
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
         <link rel="stylesheet" href="library.css">
         <link rel="stylesheet" href="chat.css">
         <title>Rechercher les notes d'un élève</title>
@@ -48,6 +54,7 @@ ob_start();
             <?php
         } else { ?>
             <div class="total flexdiv bg-info">
+                <input type="hidden" id="userJson" value='<?= json_encode($_SESSION['user']) ?>'>
                 <div class="listConv flex-1 bg-header">
                     <?php foreach ($conversations as $conversation) {
                         if ($conversation['type'] == 1) {  //is a private conversation with 2 persons
@@ -59,14 +66,14 @@ ob_start();
                             }
                             //When $othermember founded, we can display the conversation info:
                             ?>
-                            <div class="oneConv">
+                            <div class="oneConv" data-id="<?= $conversation['id'] ?>">
                                 <h4><?= $othermember['firstname'] . " " . $othermember['lastname'] ?></h4>
                                 depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
                             </div>
                             <?php
                         } else {    //else it's a group conversation
                             ?>
-                            <div class="oneConv">
+                            <div class="oneConv" data-id="<?= $conversation['id'] ?>">
                                 <h4>Groupe: <?= $conversation['name'] ?></h4>
                                 depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
                             </div>
@@ -78,21 +85,28 @@ ob_start();
                 </div>
                 <div class="divMsgs flex-4">
                     <div class="divDetails">
-                        <?php foreach ($messages as $message) {
-                            ?>
-                            <div class="<?= ($message['sender']['id'] == $_SESSION['user']['id']) ? "box-alignright" : "" ?>">
-                                <div class="oneMsg">
-                                    De: <strong><?= $message['sender']['firstname'] . " " . $message['sender']['lastname'] ?></strong>
-                                    <br><em><?= $message['text'] ?></em>
+                        <div id="divMsgsDetails">
+                            <?php foreach ($messages as $message) {
+                                ?>
+                                <div class="<?= ($message['sender']['id'] == $_SESSION['user']['id']) ? "box-alignright" : "" ?>">
+                                    <div class="oneMsg">
+                                        De:
+                                        <strong><?= $message['sender']['firstname'] . " " . $message['sender']['lastname'] ?></strong>
+                                        <br><em><?= $message['text'] ?></em>
+                                    </div>
                                 </div>
-                            </div>
-                            <?php
-                        }
-                        ?>
+                                <?php
+                            }
+                            ?>
+                            <p>Aucune conversation sélectionnée...</p>
+                        </div>
                         <div class="divSending flexdiv">
                         <textarea class="fullwidth txtSend" rows="2" name="text" maxlength="2000"
                                   placeholder="Envoyer un message..."></textarea>
-                            <div class="p-1 divButtons"><button>Envoyer</button><button>Vider</button></div>
+                            <div class="p-1 divButtons">
+                                <button>Envoyer</button>
+                                <button>Vider</button>
+                            </div>
                         </div>
                     </div>
 

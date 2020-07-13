@@ -5,72 +5,65 @@
  * Date: juillet 2020.
  */
 
-document.addEventListener("DOMContentLoaded", function () {
-    cmdSearch.addEventListener("click", searchNotes)
+$(document).ready(function () {
+    $(".oneConv").on("click", function (event) { //on event click with objects with class .oneConv
+        getConversation(event.target.getAttribute("data-id"))
+        event.stopPropagation()
+    })
+    console.log("DOM chargé")
+    user = JSON.parse(userJson.value)
+    console.log(user)
 })
 
-function searchNotes() {
-    //Ajax call:
-    request = new XMLHttpRequest()
-    request.onreadystatechange = function () {
-        if (this.readyState < XMLHttpRequest.DONE) {
-            tbody.innerHTML = ""    //clear content to be able to reload
-            tbody.innerText = "Chargement des notes...";    //wait message
-        }
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            values = JSON.parse(this.response)  //get response as object
-
-            if (values.hasOwnProperty("error") == false) {
-                //Title and preparation of table
-                tbody.innerHTML = ""    //clear wait message
-                pResult.innerText = "Notes de " + values[0].firstname + " " + values[0].lastname + ":"
-
-                //Foreach element of the array:
-                Array.prototype.forEach.call(values, function (el) {
-                    //Create the line in the table
-                    tr = document.createElement("tr")
-                    tbody.appendChild(tr)
-
-                    //Create 3 cells for each line and add it to tr as child
-                    tdModule = document.createElement("td")
-                    tdDate = document.createElement("td")
-                    tdValue = document.createElement("td")
-                    tr.appendChild(tdModule)
-                    tr.appendChild(tdDate)
-                    tr.appendChild(tdValue)
-
-                    //Initialize values of the 3 cells:
-                    tdModule.innerText = el.modulename
-                    tdDate.innerText = el.date
-                    tdValue.innerText = el.value
+async function getConversation(id) {
+    console.log("getConversation de la conv: " + id)
+    url = "?action=getMessages&id=" + id
+    Promise.all([reqGET(url)])
+        .then(function (test) {
+            Promise.all([test])
+            return test
+        })
+        .then(function (res) {
+            divMsgsDetails.innerHTML = ""   //make the content empty to remove messages
+            if (res !== false) {    //if request was successful
+                //Display the messages of the conversation:
+                Array.prototype.forEach.call(res, function (msg) {
+                    divBig = document.createElement("div")
+                    divSmall = document.createElement("div")
+                    divBig.appendChild(divSmall)
+                    if (user.id == msg.sender.id) {
+                        divBig.classList.add("box-alignright")
+                    }
+                    divSmall.innerHTML = "De:<strong>" + msg.sender.firstname + " " + msg.sender.lastname + "</strong<br><em>" + msg.text + "</em>"
+                    divMsgsDetails.appendChild(divBig)
                 })
+
+
             } else {
-                tbody.innerText = "Error: " + values.error
-                pResult.innerText = ""
+                divMsgsDetails.innerHTML = "Conversation non trouvée à l'id: " + id
             }
+            console.log("fin arrivée")
+            console.log(res)
+        })
+
+}
+
+async function reqGET(url) {
+    req = new XMLHttpRequest()
+
+    req.open("GET", url)
+    req.send()
+    req.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            const response = JSON.parse(this.responseText)
+            console.log("ready!")
+            console.log(response)
+            if (response.hasOwnProperty("error") == false) {
+                return response
+            } else {
+                return false
+            }
+
         }
-    }
-    //Build bodyPOST:
-    bodyPOST = ""
-    if (txtFirstname.value != "" && txtLastname.value != "") {
-        bodyPOST = {firstname: txtFirstname.value, lastname: txtLastname.value}
-        txtInitials.value = ""
-    } else {
-        if (txtInitials.value !== "") {
-            bodyPOST = {initials: txtInitials.value}
-            txtFirstname.value =""
-            txtLastname.value =""
-        } else {
-            pResult.innerText = "données manquantes..."
-        }
-    }
-
-    request.open("POST", "?action=getGrades")
-    //request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    request.setRequestHeader("Content-Type", "application/json")
-    if (bodyPOST != "") {
-        request.send(JSON.stringify(bodyPOST))
-    }
-
-
+    };
 }
