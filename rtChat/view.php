@@ -35,46 +35,76 @@ ob_start();
         </style>
     </head>
     <body>
-    <?php echo(isset($_SESSION['user']) ? "Etat: {$_SESSION['user']['firstname']} {$_SESSION['user']['lastname']}" : "Etat: Non connecté...");
-    if (isset($_SESSION['user']) == false) {
-        ?>
-        <form action="?action=login" method="post">
-            <input type="text" placeholder="firstname" name="firstname">
-            <input type="password" placeholder="password" name="password">
-            <input type="submit" value="Connexion">
-        </form>
-        <?php
-    } else { ?>
-        <div class="total flexdiv bg-info">
-            <div class="listConv flex-1 bg-header">
-                <?php foreach ($conversations as $conversation) {
+    <h1>
+        <?php echo(isset($_SESSION['user']) ? "Connecté: {$_SESSION['user']['firstname']} {$_SESSION['user']['lastname']}" : "Non connecté...");
+        echo "</h1>";
+        if (isset($_SESSION['user']) == false) {
+            ?>
+            <form action="?action=login" method="post">
+                <input type="text" placeholder="firstname" name="firstname">
+                <input type="password" placeholder="password" name="password">
+                <input type="submit" value="Connexion">
+            </form>
+            <?php
+        } else { ?>
+            <div class="total flexdiv bg-info">
+                <div class="listConv flex-1 bg-header">
+                    <?php foreach ($conversations as $conversation) {
+                        if ($conversation['type'] == 1) {  //is a private conversation with 2 persons
+                            //Find the member that is not me (called $othermember)
+                            if ($conversation['members'][0]['id'] == $_SESSION['user']['id']) {
+                                $othermember = $conversation['members'][1];
+                            } else {
+                                $othermember = $conversation['members'][0];
+                            }
+                            //When $othermember founded, we can display the conversation info:
+                            ?>
+                            <div class="oneConv">
+                                <h4><?= $othermember['firstname'] . " " . $othermember['lastname'] ?></h4>
+                                depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
+                            </div>
+                            <?php
+                        } else {    //else it's a group conversation
+                            ?>
+                            <div class="oneConv">
+                                <h4>Groupe: <?= $conversation['name'] ?></h4>
+                                depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
+                            </div>
+                            <?php
+                        }
+                    }
                     ?>
-                    <div class="oneConv">
-                        Conv: <?= $conversation['id'] ?>.
-                        Départ: <?= date("Y-m-d H:i", strtotime($conversation['startdate'])) ?>
+                    <div class="oneConv newConv"><strong>Nouvelle conversation</strong></div>
+                </div>
+                <div class="divMsgs flex-4">
+                    <div class="divDetails">
+                        <?php foreach ($messages as $message) {
+                            ?>
+                            <div class="<?= ($message['sender']['id'] == $_SESSION['user']['id']) ? "box-alignright" : "" ?>">
+                                <div class="oneMsg">
+                                    De: <strong><?= $message['sender']['firstname'] . " " . $message['sender']['lastname'] ?></strong>
+                                    <br><em><?= $message['text'] ?></em>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                        <div class="divSending flexdiv">
+                        <textarea class="fullwidth txtSend" rows="2" name="text" maxlength="2000"
+                                  placeholder="Envoyer un message..."></textarea>
+                            <div class="p-1 divButtons"><button>Envoyer</button><button>Vider</button></div>
+                        </div>
                     </div>
-                    <?php
-                }
-                ?>
-            </div>
-            <div class="detailsMsgs flex-4 bg-danger h-100 ">
-                <?php foreach ($messages as $message) {
-                    ?>
-                    <div class="oneMsg">
-                        De: <?= $message[''] ?>.
-                        <br><em><?= $message['text'] ?></em>
-                    </div>
-                    <?php
-                }
-                ?>
-                <div class="divSending position-relative ">
-                    <textarea class="fullwidth" rows="2" name="text" maxlength="2000" placeholder="Envoyer un message..."></textarea>
+
                 </div>
             </div>
-        </div>
-        <?php
-    }
-    ?>
+            <h1 class="takeplace">some space</h1>
+            <h1 class="takeplace">some space</h1>
+            <h1 class="takeplace">some space</h1>
+            <h1 class="takeplace">some space</h1>
+            <?php
+        }
+        ?>
 
     </body>
     </html>

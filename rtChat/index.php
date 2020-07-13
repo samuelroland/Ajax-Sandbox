@@ -7,7 +7,9 @@
  */
 session_start();
 require "CRUDModel.php";
+require "model.php";
 require "controler.php";
+
 var_dump($_SESSION);
 var_dump($_GET);
 var_dump($_POST);
@@ -21,6 +23,7 @@ function trimIt($value)
 //selon l'action
 switch ($_GET['action']) {
     case "getMessages":
+        getMessages(1);
         getMessages($data['id']);
         break;
     case "sendMsg":

@@ -11,17 +11,63 @@
 }
 
 .oneConv {
-    height: 50px;
-    background-color: #b3d7ff;
+    height: auto;
+    background-color: #ff8f00ba;
     margin: 2px;
+    padding: 10px;
 }
-.detailsMsgs{
+
+.oneConv:hover {
+    background-color: #ff8f00;
+}
+
+.newConv {
+    padding: 20px 10px;
+}
+
+.divMsgs {
+    background-color: #4fb6e3;
     display: flex;
-    justify-content: start;
     align-items: end;
 }
-.divSending{
-    position: absolute;
-    bottom: 0;
-    left: 0;
+
+.divSending {
+
+}
+
+.divDetails {
+    width: 100%;
+}
+
+.oneMsg {
+    background-color: #b3d7ff;
+    margin: 10px 5px;
+    width: max-content;
+    border: 2px solid white;
+    max-width: 1000px;
+    padding: 3px;
+}
+
+.txtSend {
+    background-color: #95c7ff;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 10px;
+    color: #00428c;
+}
+
+.takeplace {
+    color: #e2e7f0;
+}
+
+.divButtons button {
+    margin: 5px;
+}
+
+.divButtons {
+    width: min-content;
+}
+
+button:hover{
+    background-color: #b3d7ff;
 }

@@ -9,8 +9,9 @@
 //Get all message from a conversation by id
 function getMessages($id)
 {
-
-    $messages = getByCondition("messages", ["id" => $id], "messages.conversation_id =:id", true);
+    $messages = getAllMessages($id);
+    //echo json_encode(getAllMessages($id));
+    return $messages;
 }
 
 //Send a message to a receiver
@@ -19,11 +20,6 @@ function sendMsg($msg)
 
 }
 
-//get all conversation of the user logged
-function getConversations()
-{
-    return getAll("conversations");
-}
 
 //Login the user
 function login($info)
@@ -44,7 +40,8 @@ function login($info)
 
 function home()
 {
-    $conversations = getConversations();
+    $messages = getMessages(3);
+    $conversations = getConversations($_SESSION['user']['id']);
     require "view.php";
 }
 
