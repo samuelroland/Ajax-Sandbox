@@ -39,7 +39,6 @@ WHERE users.id =:id
     foreach ($conversations as $key => $conversation) {
         $conversations[$key]['members'] = getMembersFromAConversation($conversation['id']);
     }
-    var_dump($conversations);
     return $conversations;
 }
 

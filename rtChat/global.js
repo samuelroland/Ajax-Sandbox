@@ -62,7 +62,7 @@ function displayConversation(res) {
                     divBig.classList.add("box-alignright")
                 }
                 divSmall.innerHTML = "De: <strong>" + msg.sender.firstname + " " + msg.sender.lastname + "</strong><br><em>" + msg.text + "</em><br><div class='alignright fullwidth'>" + msg.time + "</div>"
-                divSmall.classList.add("OneMsg")
+                divSmall.classList.add("oneMsg")
                 divMsgsDetails.appendChild(divBig)
             })
 
@@ -86,7 +86,7 @@ function addMsgSent(msgSent) {
             divBig.classList.add("box-alignright")
         }
         divSmall.innerHTML = "De: <strong>" + msgSent.sender.firstname + " " + msgSent.sender.lastname + "</strong><br><em>" + msgSent.text + "</em><br><div class='alignright fullwidth'>" + msgSent.time + "</div>"
-        divSmall.classList.add("OneMsg")
+        divSmall.classList.add("oneMsg")
         divMsgsDetails.appendChild(divBig)
     } else {
         divMsgsDetails.innerHTML = msgSent.error.text
