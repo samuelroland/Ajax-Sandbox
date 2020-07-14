@@ -228,12 +228,11 @@ label {
 
 .circle-usericon {
     font-weight: bold;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    font-size: 1.2em;
-    height: 68px;
-    width: 68px;
+    font-size: 1.3em;
+    height: 35px;
+    width: 35px;
     border-radius: 50%;
-    background-color: #1587ff;
+    background-color: #4eb5e2;
     display: flex;
 }
 

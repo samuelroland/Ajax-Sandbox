@@ -66,28 +66,32 @@ ob_start();
                             //When $othermember founded, we can display the conversation info:
                             ?>
                             <div class="oneConv" data-id="<?= $conversation['id'] ?>">
-                                <h4><?= $othermember['firstname'] . " " . $othermember['lastname'] ?></h4>
-                                depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
+                                <h4 class="d-inline-block"><?= $othermember['firstname'] . " " . $othermember['lastname'] ?></h4>
+                                <span class="circle-usericon float-right" id="circleConv-<?= $conversation['id'] ?>"
+                                      hidden><p class="marginauto">X</p></span>
+                                <br>depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
+
                             </div>
                             <?php
                         } else {    //else it's a group conversation
                             ?>
                             <div class="oneConv" data-id="<?= $conversation['id'] ?>">
-                                <h4>Groupe: <?= $conversation['name'] ?></h4>
-                                depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
+                                <h4 class="d-inline-block">Groupe: <?= $conversation['name'] ?></h4>
+                                <span class="circle-usericon float-right" hidden id="circleConv-<?= $conversation['id'] ?>"><p class="marginauto">X</p></span>
+                                <br>depuis le <?= date("d.m.Y H:i", strtotime($conversation['startdate'])) ?>
                             </div>
                             <?php
                         }
                     }
                     ?>
                     <div class="newConv" id="btnNewConv"><strong>Nouvelle conversation</strong></div>
-                    <div class="frmnewConv newConv invisible" id="frmNewConv">Avec:
+                    <div class="frmnewConv newConv " hidden id="frmNewConv">Avec:
                         <select name="user" id="sltUser">
                         </select>
                         Type de conversation:<br>
                         <input type="radio" name="type" value="1" id="type1" required><label for="type1">Privée</label>
                         <input type="radio" name="type" value="2" id="type2" required><label for="type2">Groupe</label>
-                        <div id="divGroupName" class="invisible">
+                        <div id="divGroupName" class="" hidden>
                             Nom du groupe:
                             <input type="text" placeholder="Nom du groupe" name="groupname" id="inpGroupName">
 
@@ -96,7 +100,7 @@ ob_start();
                     </div>
                     <div>
                         <img src="courrier.png" id="imgIcon" class="imgIcon m-2" alt="">
-                        <input type="checkbox" id="chkRT" class="" name="chkRT"><label for="chkRT">Temps réel</label>
+                        <input type="checkbox" id="chkRT" class="" name="chkRT"><label for="chkRT">Realtime</label>
                     </div>
                 </div>
                 <div class="divMsgs flex-4">
@@ -128,10 +132,6 @@ ob_start();
 
                 </div>
             </div>
-            <h1 class="takeplace">some space</h1>
-            <h1 class="takeplace">some space</h1>
-            <h1 class="takeplace">some space</h1>
-            <h1 class="takeplace">some space</h1>
             <?php
         }
         ?>

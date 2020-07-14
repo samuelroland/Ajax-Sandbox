@@ -6,7 +6,7 @@
  */
 
 .total {
-    height: 700px;
+    height: 900px;
     background-color: #1abc9c;
 }
 
@@ -55,7 +55,7 @@
     margin: 10px 5px;
     width: max-content;
     border: 2px solid white;
-    max-width: 1000px;
+    max-width: 600px;
     padding: 3px;
 }
 
