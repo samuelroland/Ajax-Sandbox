@@ -25,8 +25,17 @@ switch ($_GET['action']) {
     case "getMessages": //AJAX Call
         getMessages($_GET['id']);
         break;
-    case "sendMsg": //AJAX Call
+    case "sendMsg": //AJAX Call to send a new message
         sendMsg($data);
+        break;
+    case "getMessagesAfterId":
+        getMessagesAfterId($_GET['idmsg'], $_GET['idconv']);    //Ajax call to get all messages after the message given and in the conversation given
+        break;
+    case "getUsers":
+        getUsers(); //Ajax call to get the list of the users
+        break;
+    case "createConv":
+        createConv($data);
         break;
     case "logout":
         logout();

@@ -31,6 +31,9 @@
 
 .newConv {
     padding: 20px 10px;
+    height: auto;
+    background-color: #ff8f00ba;
+    margin: 2px;
 }
 
 .divMsgs {
@@ -80,3 +83,14 @@ button:hover {
     background-color: #b3d7ff;
 }
 
+.imgIcon {
+    height: 50px;
+}
+
+.imgIcon:hover {
+    background-color: #95c7ff;
+}
+
+.frmnewConv {
+    border: 2px solid #b3d7ff;
+}

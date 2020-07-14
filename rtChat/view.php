@@ -54,7 +54,7 @@ ob_start();
         } else { ?>
             <div class="total flexdiv bg-info">
                 <input type="hidden" id="userJson" value='<?= json_encode($_SESSION['user']) ?>'>
-                <div class="listConv flex-1 bg-header">
+                <div id="listConv" class="listConv flex-1 bg-header">
                     <?php foreach ($conversations as $conversation) {
                         if ($conversation['type'] == 1) {  //is a private conversation with 2 persons
                             //Find the member that is not me (called $othermember)
@@ -80,7 +80,24 @@ ob_start();
                         }
                     }
                     ?>
-                    <div class="oneConv newConv"><strong>Nouvelle conversation</strong></div>
+                    <div class="newConv" id="btnNewConv"><strong>Nouvelle conversation</strong></div>
+                    <div class="frmnewConv newConv invisible" id="frmNewConv">Avec:
+                        <select name="user" id="sltUser">
+                        </select>
+                        Type de conversation:<br>
+                        <input type="radio" name="type" value="1" id="type1" required><label for="type1">Privée</label>
+                        <input type="radio" name="type" value="2" id="type2" required><label for="type2">Groupe</label>
+                        <div id="divGroupName" class="invisible">
+                            Nom du groupe:
+                            <input type="text" placeholder="Nom du groupe" name="groupname" id="inpGroupName">
+
+                        </div>
+                        <button id="btnCreateNewConv">Créer</button>
+                    </div>
+                    <div>
+                        <img src="courrier.png" id="imgIcon" class="imgIcon m-2" alt="">
+                        <input type="checkbox" id="chkRT" class="" name="chkRT"><label for="chkRT">Temps réel</label>
+                    </div>
                 </div>
                 <div class="divMsgs flex-4">
                     <div class="divDetails">
@@ -118,7 +135,7 @@ ob_start();
             <?php
         }
         ?>
-
+        </div>
     </body>
     </html>
 <?php

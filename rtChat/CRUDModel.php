@@ -31,6 +31,11 @@ function Query($query, $params, $manyrecords)
         } else {    //if not, use fetch()
             $queryResult = $statement->fetch(PDO::FETCH_ASSOC);//prepare result for client
         }
+
+        //If the query is an insert query (attention to the === because strpos return false if no position founded)
+        if (strpos($query, "INSERT INTO") === 0) {
+            $queryResult = $dbh->lastInsertId();
+        }
         $dbh = null;
         return $queryResult;
     } catch (PDOException $e) {

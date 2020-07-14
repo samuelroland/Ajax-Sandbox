@@ -22,7 +22,7 @@ function getAllMessages($id)
 //Send a message to a receiver
 function createMsg($msg)
 {
-    createOne("messages", $msg);
+    return createOne("messages", $msg);
 }
 
 //Get all conversation of the user logged
@@ -42,6 +42,33 @@ WHERE users.id =:id
     return $conversations;
 }
 
+//Get ONE conversation of the user given
+function getOneConversation($iduser, $idconv)
+{
+    $query = "SELECT conversations.id, conversations.name, conversations.startdate, conversations.type FROM conversations 
+INNER JOIN interact ON interact.conversation_id = conversations.id
+INNER JOIN users ON users.id = interact.user_id
+WHERE users.id =:iduser AND conversations.id =:idconv";
+
+    $conv = Query($query, ['iduser' => $iduser, "idconv" => $idconv], false);
+
+    $conv['members'] = getMembersFromAConversation($conv['id']);
+    return $conv;
+}
+
+//Get messages of a conversation that are written after a message taken by id (so all messages with a bigger id)
+function getMessagesAfter($idmsg, $idconv)
+{
+    $messages = getByCondition("messages", ["idconv" => $idconv, "idmsg" => $idmsg], "messages.conversation_id =:idconv AND messages.id >:idmsg ORDER BY messages.date", true);
+
+    //Add sender informations:
+    foreach ($messages as $key => $message) {
+        $messages[$key]['sender'] = getOne("users", $message['sender_id']);
+        $messages[$key]['time'] = date("H:i", strtotime($message['date']));
+    }
+    return $messages;
+}
+
 function getMembersFromAConversation($id)
 {
     $query = "SELECT users.id, users.firstname, users.lastname FROM interact 
@@ -51,5 +78,22 @@ WHERE interact.conversation_id =:id";
     $members = Query($query, ['id' => $id], true);
     return $members;
 }
+
+function getAllUsers()
+{
+    $query = "SELECT id, firstname, lastname from users;";
+    return Query($query, [], true);
+}
+
+function createOneConversation($conv)
+{
+    return createOne("conversations", $conv);
+}
+
+function createOneInteract($interact)
+{
+    return createOne("interact", $interact);
+}
+
 
 ?>
