@@ -48,11 +48,17 @@ function login($info)
         if (password_verify($info['password'], $theUser['password']) == true) { //if login info are right
             unset($theUser['password']);
             $_SESSION['user'] = $theUser;   //log the user
-            require "view.php";
         }
+        home();
     } else {
-        require "view.php";
+        home();
     }
+}
+
+function logout()
+{
+    unset($_SESSION['user']);
+    home();
 }
 
 function home()

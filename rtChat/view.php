@@ -42,8 +42,7 @@ ob_start();
     </head>
     <body>
     <h1>
-        <?php echo(isset($_SESSION['user']) ? "Connecté: {$_SESSION['user']['firstname']} {$_SESSION['user']['lastname']}" : "Non connecté...");
-        echo "</h1>";
+        <?php echo(isset($_SESSION['user']) ? "Connecté: {$_SESSION['user']['firstname']} {$_SESSION['user']['lastname']}</h1><a href='?action=logout'><button>Déconnexion</button></a>" : "Non connecté...</h1>");
         if (isset($_SESSION['user']) == false) {
             ?>
             <form action="?action=login" method="post">

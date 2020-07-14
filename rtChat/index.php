@@ -28,6 +28,9 @@ switch ($_GET['action']) {
     case "sendMsg": //AJAX Call
         sendMsg($data);
         break;
+    case "logout":
+        logout();
+        break;
     default:
         if (isset($_SESSION['user']) == false) {
             login($_POST);
