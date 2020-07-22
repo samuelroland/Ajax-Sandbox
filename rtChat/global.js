@@ -222,6 +222,7 @@ async function GETUsersList() {
 }
 
 function listUsers(users) {
+    sltUser.innerHTML = ""
     Array.prototype.forEach.call(users, function (user) {
         option = document.createElement("option")
         option.value = user.id
