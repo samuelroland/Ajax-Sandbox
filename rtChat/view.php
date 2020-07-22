@@ -5,7 +5,6 @@
  * But: mettre en pratique l'apprentissage de Ajax et de l'asynchrone
  * Date: juillet 2020.
  */
-
 ob_start();
 ?>
     <!doctype html>
@@ -41,11 +40,12 @@ ob_start();
         </style>
     </head>
     <body>
-    <h1>
-        <?php echo(isset($_SESSION['user']) ? "Connecté: {$_SESSION['user']['firstname']} {$_SESSION['user']['lastname']}</h1><a href='?action=logout'><button>Déconnexion</button></a>" : "Non connecté...</h1>");
+    <div class="flexdiv">
+
+        <?php echo(isset($_SESSION['user']) ? "<h4 class=\"alignright flex-2 p-2 m-1\">Connecté: {$_SESSION['user']['firstname']} {$_SESSION['user']['lastname']}</h4><a href='?action=logout'><button class='p-2 m-1'>Déconnexion</button></a></div>" : "<h4 class='p-2 m-1'>Non connecté...</h4></div>");
         if (isset($_SESSION['user']) == false) {
             ?>
-            <form action="?action=login" method="post">
+            <form action="?action=login" method="post" class="p-2 m-1">
                 <input type="text" placeholder="firstname" name="firstname">
                 <input type="password" placeholder="password" name="password">
                 <input type="submit" value="Connexion">
