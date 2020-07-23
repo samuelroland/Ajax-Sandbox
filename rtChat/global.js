@@ -72,8 +72,8 @@ function displayConversation(res, convInRun) {
     console.log("displayConversation")
     if (lastConvClicked != undefined) { //if undefined, the conv that have receive messages is not displayed
         if (convInRun.id == lastConvClicked.getAttribute("data-id")) {    //if messages are in the current conv displayed
-
             if (res.hasOwnProperty("error") == false) {
+                checkChatZoneAboutErrorMsg()
                 document.getElementById(convInRun.circleid).hidden = true
                 //Display the messages of the conversation:
                 Array.prototype.forEach.call(res, function (msg) {
@@ -136,13 +136,20 @@ function addNotifsCounter(res, convInRun) {
     }
 }
 
+function checkChatZoneAboutErrorMsg() {
+    //If there is an error message in the chat, delete the content of the chat to clear the error message. The error message is wroten in a p markup
+    if (divMsgsDetails.hasChildNodes()) {
+        if (divMsgsDetails.firstChild.tagName == "P") {
+            divMsgsDetails.removeChild(divMsgsDetails.firstChild)
+        }
+    }
+}
+
 function addMsgSent(msgSent) {
     if (msgSent.hasOwnProperty("error") == false) {
 
-        //If there is an error message in the chat, delete the content of the chat to clear the error message. The error message is wroten in a p markup
-        if (divMsgsDetails.firstChild.tagName == "P") {
-            divMsgsDetails.innerHTML = ""
-        }
+        checkChatZoneAboutErrorMsg()
+
         divBig = document.createElement("div")
         divSmall = document.createElement("div")
         divBig.appendChild(divSmall)
@@ -221,7 +228,7 @@ idSetInterval = null
 
 function periodicSearchMessages() {
     if (chkRT.checked == true) {
-        idSetInterval = setInterval(getNewMessages, 2000)
+        idSetInterval = setInterval(getNewMessages, 1000)
     } else {
         clearInterval(idSetInterval)
     }
