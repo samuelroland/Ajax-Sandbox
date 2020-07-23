@@ -32,6 +32,7 @@ function EventListenersDeclare() {
     //Load the informations of the user logged:
     user = JSON.parse(userJson.value)
     loadListConvs()
+    periodicSearchMessages()    //if the chkRT is checked, the realtime mode can start
 }
 
 async function getConversation(lastConvClicked) {
@@ -141,8 +142,8 @@ function addMsgSent(msgSent) {
         //Set last id of msg in the right conversation:
         index = 0
         Array.prototype.forEach.call(listOfConvs, function (convRun) {
-            if (convRun.id == convInRun.id) {
-                listOfConvs[counter].lastMsgId = msgSent.id
+            if (convRun.id == lastConvClicked.getAttribute("data-id")) {
+                listOfConvs[index].lastMsgId = msgSent.id
             }
             index++
         })
@@ -160,7 +161,7 @@ function removeBG() {
 
 function sendMsg() {
     if (txtMsg.value != "" && lastConvClicked != null) {
-        if (lastConvClicked.getAttribute("data-id") != null) {
+        if (lastConvClicked.getAttribute("data-id") != null) {  //if clicked on a child of a .oneConv div
             req = newReq()
             req.onreadystatechange = function () {
                 if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
