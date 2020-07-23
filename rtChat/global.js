@@ -105,7 +105,7 @@ function displayConversation(res, convInRun) {
             } else {
                 if (res.error.id == 3) {    //if conversation doesn't have any message yet
                     lastConvClicked.classList.add("convSelect") //mark the last conv clicked as selected
-                    divMsgsDetails.innerHTML = res.error.text
+                    divMsgsDetails.innerHTML = "<p>" + res.error.text + "</p>"
                 }
             }
         }
@@ -137,6 +137,10 @@ function displayConversation(res, convInRun) {
 function addMsgSent(msgSent) {
     if (msgSent.hasOwnProperty("error") == false) {
 
+        //If there is an error message in the chat, delete the content of the chat to clear the error message. The error message is wroten in a p markup
+        if (divMsgsDetails.firstChild.tagName == "P") {
+            divMsgsDetails.innerHTML = ""
+        }
         divBig = document.createElement("div")
         divSmall = document.createElement("div")
         divBig.appendChild(divSmall)

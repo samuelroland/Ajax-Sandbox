@@ -15,7 +15,7 @@ function getMessages($id)
             $error = [
                 "error" => [
                     "id" => 3,
-                    "text" => "Aucun message à la conversation... écrivez le premier msg !"
+                    "text" => "Aucun message dans cette conversation... écrivez un premier msg !"
                 ]
             ];
         } else {
