@@ -70,37 +70,44 @@ async function reqGET(url, convInRun) {
 
 function displayConversation(res, convInRun) {
     console.log("displayConversation")
-    if (convInRun.id == lastConvClicked.getAttribute("data-id")) {    //if messages are in the current conv displayed
+    if (lastConvClicked != undefined) { //if undefined, the conv that have receive messages is not displayed
+        if (convInRun.id == lastConvClicked.getAttribute("data-id")) {    //if messages are in the current conv displayed
 
-        if (res.hasOwnProperty("error") == false) {
-            document.getElementById(convInRun.circleid).hidden = true
-            //Display the messages of the conversation:
-            Array.prototype.forEach.call(res, function (msg) {
-                divBig = document.createElement("div")
-                divSmall = document.createElement("div")
-                divBig.appendChild(divSmall)
-                if (user.id == msg.sender.id) {
-                    divBig.classList.add("box-alignright")
-                }
-                divSmall.innerHTML = "De: <strong>" + msg.sender.firstname + " " + msg.sender.lastname + "</strong><br><em>" + msg.text + "</em><br><div class='alignright fullwidth'>" + msg.time + "</div>"
-                divSmall.classList.add("oneMsg")
-                divMsgsDetails.appendChild(divBig)
-
-                //Set last id of msg in the right conversation:
-                index = 0
-                Array.prototype.forEach.call(listOfConvs, function (convRun) {
-                    if (convRun.id == convInRun.id) {
-                        if (msg.id == null) {
-                            listOfConvs[index].lastMsgId = 1000
-                        } else {
-                            listOfConvs[index].lastMsgId = msg.id
-                        }
+            if (res.hasOwnProperty("error") == false) {
+                document.getElementById(convInRun.circleid).hidden = true
+                //Display the messages of the conversation:
+                Array.prototype.forEach.call(res, function (msg) {
+                    divBig = document.createElement("div")
+                    divSmall = document.createElement("div")
+                    divBig.appendChild(divSmall)
+                    if (user.id == msg.sender.id) {
+                        divBig.classList.add("box-alignright")
                     }
-                    index++
-                })
-            })
+                    divSmall.innerHTML = "De: <strong>" + msg.sender.firstname + " " + msg.sender.lastname + "</strong><br><em>" + msg.text + "</em><br><div class='alignright fullwidth'>" + msg.time + "</div>"
+                    divSmall.classList.add("oneMsg")
+                    divMsgsDetails.appendChild(divBig)
 
-            lastConvClicked.classList.add("convSelect") //mark the last conv clicked as selected
+                    //Set last id of msg in the right conversation:
+                    index = 0
+                    Array.prototype.forEach.call(listOfConvs, function (convRun) {
+                        if (convRun.id == convInRun.id) {
+                            if (msg.id == null) {
+                                listOfConvs[index].lastMsgId = 1000
+                            } else {
+                                listOfConvs[index].lastMsgId = msg.id
+                            }
+                        }
+                        index++
+                    })
+                })
+
+                lastConvClicked.classList.add("convSelect") //mark the last conv clicked as selected
+            } else {
+                if (res.error.id == 3) {    //if conversation doesn't have any message yet
+                    lastConvClicked.classList.add("convSelect") //mark the last conv clicked as selected
+                    divMsgsDetails.innerHTML = res.error.text
+                }
+            }
         }
     } else {    //if messages are in other conversations, just add the notifs counter:
         //loadListConvs()
@@ -282,19 +289,18 @@ function addNewConv(conv) {
             othermember = conv.members[0]
         }
 
-        divConv.innerHTML = "<h4>" + othermember.firstname + " " + othermember.lastname + "</h4>depuis le " + conv.simpledatetime
+        divConv.innerHTML = "<h4>" + othermember.firstname + " " + othermember.lastname + "</h4>"
     } else {
-        divConv.innerHTML = "<h4>Groupe: " + conv.name + "</h4>depuis le " + conv.simpledatetime
+        divConv.innerHTML = "<h4>Groupe: " + conv.name + "</h4>"
     }
+    divConv.innerHTML += "depuis le " + conv.simpledatetime
+    divConv.innerHTML += "<span class=\"circle-usericon float-right\" id=\"circleConv-3\" hidden><p class=\"marginauto\">X</p></span>"
 
-    // loadListConvs()
-
-    listConv.insertBefore(divConv, listConv.children[counter])  //insert before the div after the last .oneConv (so after the last .oneConv...)
-    EventListenersDeclare() //for add eventlistener on new .oneConv
+    listConv.insertBefore(divConv, listConv.children[listOfConvs.length])  //insert before the div after the last .oneConv (so after the last .oneConv... --> length - 1 + 1)
+    EventListenersDeclare() //to add eventlistener on the new .oneConv
 }
 
 function manageInputGroupName() {
-    console.log("manageInputGroupName")
     if (type2.checked == true) {
         divGroupName.hidden = false
     } else {

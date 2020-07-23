@@ -11,11 +11,21 @@ function getMessages($id)
 {
     $messages = getAllMessages($id);
     if (empty($messages)) {
-        $error = [
-            "error" => [
-                "text" => "Conversation non trouvée..."
-            ]
-        ];
+        if (convExists($id)) {
+            $error = [
+                "error" => [
+                    "id" => 3,
+                    "text" => "Aucun message à la conversation... écrivez le premier msg !"
+                ]
+            ];
+        } else {
+            $error = [
+                "error" => [
+                    "id" => 2,
+                    "text" => "Conversation non trouvée..."
+                ]
+            ];
+        }
         echo json_encode($error);
     } else {
         echo json_encode($messages);
@@ -28,6 +38,7 @@ function getMessagesAfterId($idmsg, $idconv)
     if (empty($messages)) {
         $error = [
             "error" => [
+                "id" => 1,
                 "text" => "Aucun nouveau message..."
             ]
         ];

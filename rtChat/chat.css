@@ -42,6 +42,10 @@
     align-items: end;
 }
 
+#divMsgsDetails {
+    padding: 5px;
+}
+
 .divSending {
 
 }

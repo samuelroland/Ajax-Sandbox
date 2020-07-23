@@ -42,6 +42,13 @@ WHERE users.id =:id
     return $conversations;
 }
 
+//Test if a conversation exists:
+function convExists($id)
+{
+    $test = getOne("conversations", $id);
+    return !empty($test);
+}
+
 //Get ONE conversation of the user given
 function getOneConversation($iduser, $idconv)
 {
