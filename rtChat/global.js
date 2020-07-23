@@ -108,29 +108,31 @@ function displayConversation(res, convInRun) {
                     divMsgsDetails.innerHTML = "<p>" + res.error.text + "</p>"
                 }
             }
+        } else { //if messages are in other conversations, just add the notifs counter:
+            addNotifsCounter(res, convInRun)
         }
     } else {    //if messages are in other conversations, just add the notifs counter:
-        //loadListConvs()
-        console.log(listOfConvs)
-        console.log(convInRun)
-        let circleid = null
-        Array.prototype.forEach.call(listOfConvs, function (convRun) {
-            console.log("helo")
-            console.log(convInRun)
-            console.log(convRun)
-            if (convRun.id == convInRun.id) {
-                circleid = convRun.circleid
-                console.log("circleid trouvé " + circleid)
-            }
-        })
+        addNotifsCounter(res, convInRun)
+    }
+}
 
-        circle = document.getElementById(circleid)
-        if (res.length != undefined) {
-            circle.hidden = false
-            circle.firstChild.innerText = res.length
-        } else {
-            circle.hidden = true
+function addNotifsCounter(res, convInRun) {
+    console.log(listOfConvs)
+    console.log(convInRun)
+    let circleid = null
+    Array.prototype.forEach.call(listOfConvs, function (convRun) {
+        if (convRun.id == convInRun.id) {
+            circleid = convRun.circleid
+            console.log("circleid trouvé " + circleid)
         }
+    })
+
+    circle = document.getElementById(circleid)
+    if (res.length != undefined) {
+        circle.hidden = false
+        circle.firstChild.innerText = res.length
+    } else {
+        circle.hidden = true
     }
 }
 
@@ -204,8 +206,13 @@ function getNewMessages() {
         console.log(convInRun)
         idmsg = convInRun.lastMsgId
         idconv = convInRun.id
-        url = "?action=getMessagesAfterId&idmsg=" + idmsg + "&idconv=" + idconv
-        reqGET(url, convInRun)
+        if (idmsg == undefined) {
+            idmsg = 1
+        }
+        if (idconv != undefined) {
+            url = "?action=getMessagesAfterId&idmsg=" + idmsg + "&idconv=" + idconv
+            reqGET(url, convInRun)
+        }
     })
 
 }
