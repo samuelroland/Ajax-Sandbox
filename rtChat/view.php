@@ -25,7 +25,7 @@ ob_start();
 
         <link rel="stylesheet" href="library.css">
         <link rel="stylesheet" href="chat.css">
-        <title>Rechercher les notes d'un élève</title>
+        <title>rtChat v1.1</title>
         <script src="global.js"></script>
         <style>
             td {
